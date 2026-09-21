@@ -1,50 +1,79 @@
 <!doctype html>
 <html lang="ro">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
 
 <title>CarZone Admin</title>
 
 <style>
+
+*{
+  box-sizing:border-box;
+}
+
 body{
-  font-family:Arial,sans-serif;
-  background:#f5f6f8;
   margin:0;
-  color:#111;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f6f8;
+  color:#111827;
+}
+
+button,
+input,
+select{
+  font:inherit;
 }
 
 .wrap{
-  width:min(1100px,94%);
+  width:min(1200px,94%);
   margin:auto;
-  padding:30px 0;
+  padding:25px 0 50px;
 }
 
-.box{
-  background:white;
-  padding:20px;
-  border-radius:15px;
-  margin:15px 0;
-  box-sizing:border-box;
+/* HEADER */
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:25px;
 }
 
-input,select{
-  padding:12px;
-  margin:5px 0;
-  width:100%;
-  box-sizing:border-box;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:16px;
+.header h1{
+  margin:0;
+  font-size:32px;
 }
+
+.header p{
+  margin:5px 0 0;
+  color:#6b7280;
+}
+
+.header-actions{
+  display:flex;
+  gap:8px;
+}
+
+/* BUTTONS */
 
 button{
-  padding:11px 16px;
-  margin:5px 3px 5px 0;
   border:0;
-  border-radius:9px;
+  border-radius:10px;
+  padding:11px 15px;
   cursor:pointer;
-  font-size:15px;
+  transition:.15s;
+}
+
+button:hover{
+  opacity:.9;
 }
 
 .primary{
@@ -52,121 +81,565 @@ button{
   color:white;
 }
 
-.danger{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
-
-.error{
-  background:#fee2e2;
-  color:#991b1b;
-  padding:15px;
-  border-radius:10px;
-  margin-top:10px;
-  white-space:pre-wrap;
+.secondary{
+  background:#e5e7eb;
+  color:#111827;
 }
 
 .success{
+  background:#16a34a;
+  color:white;
+}
+
+.warning{
+  background:#f59e0b;
+  color:white;
+}
+
+.danger{
+  background:#dc2626;
+  color:white;
+}
+
+/* CARDS */
+
+.box{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:18px;
+  box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+
+.box h2{
+  margin-top:0;
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.stat{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 2px 10px rgba(0,0,0,.04);
+}
+
+.stat-label{
+  color:#6b7280;
+  font-size:14px;
+  margin-bottom:8px;
+}
+
+.stat-value{
+  font-size:28px;
+  font-weight:bold;
+}
+
+/* FORMS */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:10px;
+}
+
+input,
+select{
+  width:100%;
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  outline:none;
+  background:white;
+}
+
+input:focus,
+select:focus{
+  border-color:#2563eb;
+}
+
+/* PRODUCTS */
+
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.product{
+  border:1px solid #e5e7eb;
+  border-radius:15px;
+  padding:18px;
+}
+
+.product-top{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.product-icon{
+  width:55px;
+  height:55px;
+  border-radius:12px;
+  background:#f3f4f6;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  flex-shrink:0;
+}
+
+.product-name{
+  font-size:18px;
+  font-weight:bold;
+}
+
+.product-status{
+  font-size:13px;
+  margin-top:5px;
+}
+
+.active{
+  color:#16a34a;
+}
+
+.inactive{
+  color:#dc2626;
+}
+
+.product-fields{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.product-fields .full{
+  grid-column:1/-1;
+}
+
+.product-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:12px;
+}
+
+/* ORDERS */
+
+.order{
+  border:1px solid #e5e7eb;
+  border-radius:15px;
+  padding:18px;
+  margin-bottom:12px;
+}
+
+.order-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+}
+
+.order-number{
+  font-size:18px;
+  font-weight:bold;
+}
+
+.order-date{
+  color:#6b7280;
+  font-size:13px;
+  margin-top:4px;
+}
+
+.order-customer{
+  margin-top:15px;
+  background:#f9fafb;
+  border-radius:12px;
+  padding:14px;
+}
+
+.order-customer p{
+  margin:6px 0;
+}
+
+.order-items{
+  margin-top:15px;
+}
+
+.order-item{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:9px 0;
+  border-bottom:1px solid #eee;
+}
+
+.order-total{
+  display:flex;
+  justify-content:space-between;
+  margin-top:15px;
+  font-size:19px;
+  font-weight:bold;
+}
+
+/* STATUS */
+
+.status-new{
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.status-confirmed{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+.status-shipped{
+  background:#e0e7ff;
+  color:#4338ca;
+}
+
+.status-completed{
   background:#dcfce7;
   color:#166534;
-  padding:15px;
+}
+
+.status-cancelled{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.status-badge{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+/* MESSAGES */
+
+.message{
+  padding:12px;
   border-radius:10px;
   margin-top:10px;
 }
 
-@media(max-width:700px){
-  .grid{
+.message.error{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.message.ok{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.loading{
+  color:#6b7280;
+  padding:15px 0;
+}
+
+/* EMPTY */
+
+.empty{
+  text-align:center;
+  padding:30px;
+  color:#6b7280;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .products-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .form-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:650px){
+
+  .wrap{
+    width:94%;
+    padding-top:18px;
+  }
+
+  .header{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .header h1{
+    font-size:28px;
+  }
+
+  .header-actions{
+    width:100%;
+  }
+
+  .header-actions button{
+    flex:1;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .stat{
+    padding:15px;
+  }
+
+  .stat-value{
+    font-size:22px;
+  }
+
+  .products-grid{
     grid-template-columns:1fr;
   }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .box{
+    padding:17px;
+  }
+
+  .order-header{
+    flex-direction:column;
+  }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="wrap">
 
-<h1>CarZone Admin</h1>
 
-<div id="login" class="box">
+<!-- HEADER -->
 
-<h2>Autentificare</h2>
+<div class="header">
 
-<input id="email" type="email" placeholder="Email">
+  <div>
+    <h1>CarZone Admin</h1>
+    <p>Panoul de administrare</p>
+  </div>
 
-<input id="password" type="password" placeholder="Parolă">
+  <div class="header-actions">
 
-<button class="primary" onclick="login()">
-Intră
-</button>
+    <button
+      class="secondary"
+      onclick="loadAll()"
+    >
+      🔄 Actualizează
+    </button>
 
-<p id="msg"></p>
+    <button
+      class="danger"
+      onclick="logout()"
+    >
+      🚪 Ieșire
+    </button>
+
+  </div>
 
 </div>
 
 
-<div id="panel" style="display:none">
+<!-- STATISTICI -->
+
+<div class="stats">
+
+  <div class="stat">
+
+    <div class="stat-label">
+      Produse
+    </div>
+
+    <div
+      class="stat-value"
+      id="statProducts"
+    >
+      0
+    </div>
+
+  </div>
+
+
+  <div class="stat">
+
+    <div class="stat-label">
+      Produse active
+    </div>
+
+    <div
+      class="stat-value"
+      id="statActive"
+    >
+      0
+    </div>
+
+  </div>
+
+
+  <div class="stat">
+
+    <div class="stat-label">
+      Comenzi
+    </div>
+
+    <div
+      class="stat-value"
+      id="statOrders"
+    >
+      0
+    </div>
+
+  </div>
+
+
+  <div class="stat">
+
+    <div class="stat-label">
+      Valoare comenzi
+    </div>
+
+    <div
+      class="stat-value"
+      id="statSales"
+    >
+      0 lei
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ADAUGĂ PRODUS -->
 
 <div class="box">
 
-<h2>Adaugă produs</h2>
+  <h2>➕ Adaugă produs</h2>
 
-<input id="name" placeholder="Nume produs">
+  <div class="form-grid">
 
-<input id="price" type="number" step="0.01" placeholder="Preț lei">
+    <input
+      id="name"
+      placeholder="Nume produs"
+    >
 
-<input id="stock" type="number" placeholder="Stoc">
+    <input
+      id="price"
+      type="number"
+      step="0.01"
+      placeholder="Preț lei"
+    >
 
-<input id="icon" placeholder="Emoji">
+    <input
+      id="stock"
+      type="number"
+      placeholder="Stoc"
+    >
 
-<button class="primary" onclick="addProduct()">
-Adaugă
-</button>
+    <input
+      id="icon"
+      placeholder="Emoji 🚗"
+    >
 
-<div id="productMessage"></div>
+  </div>
+
+
+  <button
+    class="primary"
+    onclick="addProduct()"
+    style="margin-top:10px"
+  >
+    Adaugă produs
+  </button>
+
+
+  <div id="productMessage"></div>
 
 </div>
 
+
+<!-- PRODUSE -->
 
 <div class="box">
 
-<h2>Produse</h2>
+  <h2>📦 Produse</h2>
 
-<div id="products">
-Se încarcă produsele...
+  <div
+    id="products"
+    class="loading"
+  >
+    Se încarcă produsele...
+  </div>
+
 </div>
 
-</div>
 
+<!-- COMENZI -->
 
 <div class="box">
 
-<h2>Comenzi</h2>
+  <h2>🛒 Comenzi</h2>
 
-<div id="orders">
-Se încarcă comenzile...
+  <div
+    id="orders"
+    class="loading"
+  >
+    Se încarcă comenzile...
+  </div>
+
 </div>
 
-</div>
 
 </div>
 
-</div>
 
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="../config.js"></script>
 
+
 <script>
 
+
+/* =========================
+   CONFIGURARE
+========================= */
+
 const cfg = window.CARZONE_CONFIG;
+
 
 const sb = window.supabase.createClient(
   cfg.SUPABASE_URL,
@@ -174,326 +647,480 @@ const sb = window.supabase.createClient(
 );
 
 
-/* LOGIN */
+/* =========================
+   DATE
+========================= */
 
-async function login(){
+let products = [];
 
-  const emailValue =
-    document.querySelector("#email").value.trim();
+let orders = [];
 
-  const passwordValue =
-    document.querySelector("#password").value;
+let orderItems = [];
 
-  const msg =
-    document.querySelector("#msg");
 
-  msg.textContent = "Se conectează...";
+/* =========================
+   UTILITARE
+========================= */
 
-  const { data, error } =
-    await sb.auth.signInWithPassword({
-      email: emailValue,
-      password: passwordValue
-    });
+function money(value){
 
-  if(error){
-
-    msg.innerHTML =
-      '<div class="error">' +
-      error.message +
-      '</div>';
-
-    console.error(error);
-
-    return;
-  }
-
-  msg.innerHTML =
-    '<div class="success">Conectat.</div>';
-
-  document.querySelector("#login").style.display =
-    "none";
-
-  document.querySelector("#panel").style.display =
-    "block";
-
-  await load();
+  return Number(value || 0).toLocaleString(
+    "ro-RO",
+    {
+      style:"currency",
+      currency:"RON"
+    }
+  );
 
 }
 
 
-/* VERIFICĂ SESIUNEA EXISTENTĂ */
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function formatDate(value){
+
+  if(!value){
+    return "-";
+  }
+
+  const d = new Date(value);
+
+  return d.toLocaleString(
+    "ro-RO",
+    {
+      dateStyle:"medium",
+      timeStyle:"short"
+    }
+  );
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
 
 async function checkSession(){
 
-  const { data, error } =
-    await sb.auth.getSession();
+  const {
+    data,
+    error
+  } = await sb.auth.getSession();
+
 
   if(error){
 
     console.error(error);
 
+    showLogin();
+
     return;
   }
 
-  if(data.session){
 
-    document.querySelector("#login").style.display =
-      "none";
+  if(!data.session){
 
-    document.querySelector("#panel").style.display =
-      "block";
+    showLogin();
 
-    await load();
+    return;
   }
+
+
+  await loadAll();
 
 }
 
 
-/* ÎNCARCĂ DATELE */
+function showLogin(){
 
-async function load(){
+  document.body.innerHTML = `
 
-  const productsEl =
-    document.querySelector("#products");
+    <div style="
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#f4f6f8;
+      padding:20px;
+    ">
 
-  const ordersEl =
-    document.querySelector("#orders");
+      <div style="
+        background:white;
+        padding:25px;
+        border-radius:18px;
+        width:min(420px,100%);
+        box-shadow:0 5px 25px rgba(0,0,0,.08);
+      ">
+
+        <h1 style="margin-top:0">
+          CarZone Admin
+        </h1>
+
+        <p style="color:#6b7280">
+          Autentificare administrator
+        </p>
+
+        <input
+          id="loginEmail"
+          type="email"
+          placeholder="Email"
+          style="
+            width:100%;
+            padding:13px;
+            margin:6px 0;
+            border:1px solid #ccc;
+            border-radius:10px;
+          "
+        >
+
+        <input
+          id="loginPassword"
+          type="password"
+          placeholder="Parolă"
+          style="
+            width:100%;
+            padding:13px;
+            margin:6px 0;
+            border:1px solid #ccc;
+            border-radius:10px;
+          "
+        >
+
+        <button
+          onclick="doLogin()"
+          style="
+            width:100%;
+            padding:13px;
+            margin-top:8px;
+            background:#2563eb;
+            color:white;
+            border:0;
+            border-radius:10px;
+          "
+        >
+          Intră
+        </button>
+
+        <div
+          id="loginMessage"
+          style="margin-top:10px"
+        ></div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
 
 
-  productsEl.innerHTML =
-    "Se încarcă produsele...";
+async function doLogin(){
 
-  ordersEl.innerHTML =
-    "Se încarcă comenzile...";
+  const email =
+    document.querySelector("#loginEmail").value.trim();
+
+  const password =
+    document.querySelector("#loginPassword").value;
 
 
-  /* PRODUSE */
+  const msg =
+    document.querySelector("#loginMessage");
+
+
+  msg.textContent =
+    "Se conectează...";
+
 
   const {
-    data: products,
-    error: productsError
+    error
+  } = await sb.auth.signInWithPassword({
+    email,
+    password
+  });
+
+
+  if(error){
+
+    msg.innerHTML = `
+      <div style="
+        background:#fee2e2;
+        color:#991b1b;
+        padding:12px;
+        border-radius:10px;
+      ">
+        ${escapeHtml(error.message)}
+      </div>
+    `;
+
+    return;
+  }
+
+
+  location.reload();
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function logout(){
+
+  await sb.auth.signOut();
+
+  location.reload();
+
+}
+
+
+/* =========================
+   ÎNCARCĂ TOT
+========================= */
+
+async function loadAll(){
+
+  document.querySelector("#products").innerHTML =
+    '<div class="loading">Se încarcă produsele...</div>';
+
+  document.querySelector("#orders").innerHTML =
+    '<div class="loading">Se încarcă comenzile...</div>';
+
+
+  await Promise.all([
+    loadProducts(),
+    loadOrders()
+  ]);
+
+
+  updateStats();
+
+}
+
+
+/* =========================
+   PRODUSE
+========================= */
+
+async function loadProducts(){
+
+  const {
+    data,
+    error
   } = await sb
     .from("products")
     .select("*")
-    .order("created_at", {
-      ascending:false
-    });
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
 
 
-  console.log("PRODUCTS:", products);
+  if(error){
 
-  console.log("PRODUCT ERROR:", productsError);
+    console.error(error);
 
+    document.querySelector("#products").innerHTML = `
+      <div class="message error">
+        ${escapeHtml(error.message)}
+      </div>
+    `;
 
-  if(productsError){
-
-    productsEl.innerHTML =
-      '<div class="error">' +
-      'EROARE PRODUSE:\\n\\n' +
-      productsError.message +
-      '\\n\\nCod: ' +
-      (productsError.code || "necunoscut") +
-      '</div>';
-
-  }else if(!products || products.length === 0){
-
-    productsEl.innerHTML =
-      '<div class="error">' +
-      'Supabase a răspuns, dar lista produselor este goală.' +
-      '</div>';
-
-  }else{
-
-    productsEl.innerHTML =
-      products.map(x => `
-
-        <div class="box">
-
-          <h3>
-            ${x.icon || "🚗"} ${x.name}
-          </h3>
-
-          <p>
-            Preț actual:
-            <b>${x.price} lei</b>
-          </p>
-
-          <p>
-            Stoc:
-            <b>${x.stock}</b>
-          </p>
-
-          <p>
-            Activ:
-            <b>${x.active ? "DA" : "NU"}</b>
-          </p>
-
-          <input
-            id="p${x.id}"
-            type="number"
-            step="0.01"
-            value="${x.price}"
-          >
-
-          <input
-            id="s${x.id}"
-            type="number"
-            value="${x.stock}"
-          >
-
-          <button
-            class="primary"
-            onclick="updateP(${x.id})"
-          >
-            Salvează
-          </button>
-
-          <button
-            class="danger"
-            onclick="toggleP(${x.id},${x.active})"
-          >
-            ${x.active ? "Dezactivează" : "Activează"}
-          </button>
-
-        </div>
-
-      `).join("");
-
+    return;
   }
 
 
-  /* COMENZI */
+  products = data || [];
 
-  const {
-    data: orders,
-    error: ordersError
-  } = await sb
-    .from("orders")
-    .select("*")
-    .order("created_at", {
-      ascending:false
-    });
-
-
-  console.log("ORDERS:", orders);
-
-  console.log("ORDER ERROR:", ordersError);
-
-
-  if(ordersError){
-
-    ordersEl.innerHTML =
-      '<div class="error">' +
-      'EROARE COMENZI:\\n\\n' +
-      ordersError.message +
-      '\\n\\nCod: ' +
-      (ordersError.code || "necunoscut") +
-      '</div>';
-
-  }else if(!orders || orders.length === 0){
-
-    ordersEl.innerHTML =
-      '<p>Nu există comenzi momentan.</p>';
-
-  }else{
-
-    ordersEl.innerHTML =
-      orders.map(x => `
-
-        <div class="box">
-
-          <h3>
-            Comanda ${x.order_number || x.id}
-          </h3>
-
-          <p>
-            <b>${x.customer_name}</b>
-          </p>
-
-          <p>
-            Telefon:
-            ${x.phone}
-          </p>
-
-          <p>
-            Email:
-            ${x.email || "-"}
-          </p>
-
-          <p>
-            ${x.city},
-            ${x.address}
-          </p>
-
-          <p>
-            Total:
-            <b>${x.total} lei</b>
-          </p>
-
-          <select
-            onchange="status('${x.id}',this.value)"
-          >
-
-            <option value="new"
-              ${x.status === "new" ? "selected" : ""}>
-              Nouă
-            </option>
-
-            <option value="confirmed"
-              ${x.status === "confirmed" ? "selected" : ""}>
-              Confirmată
-            </option>
-
-            <option value="shipped"
-              ${x.status === "shipped" ? "selected" : ""}>
-              Expediată
-            </option>
-
-            <option value="completed"
-              ${x.status === "completed" ? "selected" : ""}>
-              Finalizată
-            </option>
-
-            <option value="cancelled"
-              ${x.status === "cancelled" ? "selected" : ""}>
-              Anulată
-            </option>
-
-          </select>
-
-        </div>
-
-      `).join("");
-
-  }
+  renderProducts();
 
 }
 
 
-/* ADAUGĂ PRODUS */
+/* =========================
+   AFIȘARE PRODUSE
+========================= */
+
+function renderProducts(){
+
+  const el =
+    document.querySelector("#products");
+
+
+  if(!products.length){
+
+    el.innerHTML = `
+      <div class="empty">
+        Nu există produse.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  el.innerHTML = `
+
+    <div class="products-grid">
+
+      ${products.map(p => `
+
+        <div class="product">
+
+          <div class="product-top">
+
+            <div class="product-icon">
+              ${escapeHtml(p.icon || "🚗")}
+            </div>
+
+            <div>
+
+              <div class="product-name">
+                ${escapeHtml(p.name)}
+              </div>
+
+              <div class="
+                product-status
+                ${p.active ? "active" : "inactive"}
+              ">
+                ${p.active ? "● Activ" : "● Dezactivat"}
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="product-fields">
+
+            <input
+              id="name-${p.id}"
+              class="full"
+              value="${escapeHtml(p.name)}"
+              placeholder="Nume"
+            >
+
+            <input
+              id="price-${p.id}"
+              type="number"
+              step="0.01"
+              value="${p.price}"
+              placeholder="Preț"
+            >
+
+            <input
+              id="stock-${p.id}"
+              type="number"
+              value="${p.stock}"
+              placeholder="Stoc"
+            >
+
+            <input
+              id="icon-${p.id}"
+              value="${escapeHtml(p.icon || "🚗")}"
+              placeholder="Emoji"
+            >
+
+          </div>
+
+
+          <div class="product-actions">
+
+            <button
+              class="primary"
+              onclick="updateProduct('${p.id}')"
+            >
+              💾 Salvează
+            </button>
+
+
+            <button
+              class="${p.active ? "danger" : "success"}"
+              onclick="toggleProduct('${p.id}',${p.active})"
+            >
+              ${p.active ? "Dezactivează" : "Activează"}
+            </button>
+
+          </div>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================
+   ADAUGĂ PRODUS
+========================= */
 
 async function addProduct(){
 
-  const productName =
+  const name =
     document.querySelector("#name").value.trim();
 
-  const productPrice =
+  const price =
     Number(document.querySelector("#price").value);
 
-  const productStock =
+  const stock =
     Number(document.querySelector("#stock").value);
 
-  const productIcon =
+  const icon =
     document.querySelector("#icon").value.trim() || "🚗";
+
 
   const message =
     document.querySelector("#productMessage");
 
 
-  if(!productName){
+  if(!name){
 
-    message.innerHTML =
-      '<div class="error">Introdu numele produsului.</div>';
+    message.innerHTML = `
+      <div class="message error">
+        Introdu numele produsului.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  if(!Number.isFinite(price) || price < 0){
+
+    message.innerHTML = `
+      <div class="message error">
+        Introdu un preț valid.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  if(!Number.isInteger(stock) || stock < 0){
+
+    message.innerHTML = `
+      <div class="message error">
+        Introdu un stoc valid.
+      </div>
+    `;
 
     return;
   }
@@ -505,13 +1132,13 @@ async function addProduct(){
     .from("products")
     .insert({
 
-      name:productName,
+      name:name,
 
-      price:productPrice,
+      price:price,
 
-      stock:productStock,
+      stock:stock,
 
-      icon:productIcon,
+      icon:icon,
 
       active:true
 
@@ -520,19 +1147,23 @@ async function addProduct(){
 
   if(error){
 
-    message.innerHTML =
-      '<div class="error">' +
-      error.message +
-      '</div>';
-
     console.error(error);
+
+    message.innerHTML = `
+      <div class="message error">
+        ${escapeHtml(error.message)}
+      </div>
+    `;
 
     return;
   }
 
 
-  message.innerHTML =
-    '<div class="success">Produs adăugat.</div>';
+  message.innerHTML = `
+    <div class="message ok">
+      Produsul a fost adăugat.
+    </div>
+  `;
 
 
   document.querySelector("#name").value = "";
@@ -544,24 +1175,42 @@ async function addProduct(){
   document.querySelector("#icon").value = "";
 
 
-  await load();
+  await loadProducts();
+
+  updateStats();
 
 }
 
 
-/* MODIFICĂ PRODUS */
+/* =========================
+   EDITEAZĂ PRODUS
+========================= */
 
-async function updateP(id){
+async function updateProduct(id){
+
+  const name =
+    document.querySelector("#name-" + id).value.trim();
 
   const price =
     Number(
-      document.querySelector("#p" + id).value
+      document.querySelector("#price-" + id).value
     );
 
   const stock =
     Number(
-      document.querySelector("#s" + id).value
+      document.querySelector("#stock-" + id).value
     );
+
+  const icon =
+    document.querySelector("#icon-" + id).value.trim() || "🚗";
+
+
+  if(!name){
+
+    alert("Numele produsului este obligatoriu.");
+
+    return;
+  }
 
 
   const {
@@ -569,16 +1218,26 @@ async function updateP(id){
   } = await sb
     .from("products")
     .update({
+
+      name:name,
+
       price:price,
-      stock:stock
+
+      stock:stock,
+
+      icon:icon
+
     })
-    .eq("id",id);
+    .eq(
+      "id",
+      id
+    );
 
 
   if(error){
 
     alert(
-      "Eroare:\\n" +
+      "Eroare la salvare:\n\n" +
       error.message
     );
 
@@ -588,14 +1247,18 @@ async function updateP(id){
   }
 
 
-  await load();
+  await loadProducts();
+
+  updateStats();
 
 }
 
 
-/* ACTIVE / INACTIV */
+/* =========================
+   ACTIVE / DEZACTIVEAZĂ
+========================= */
 
-async function toggleP(id,active){
+async function toggleProduct(id,active){
 
   const {
     error
@@ -604,13 +1267,16 @@ async function toggleP(id,active){
     .update({
       active:!active
     })
-    .eq("id",id);
+    .eq(
+      "id",
+      id
+    );
 
 
   if(error){
 
     alert(
-      "Eroare:\\n" +
+      "Eroare:\n\n" +
       error.message
     );
 
@@ -620,48 +1286,198 @@ async function toggleP(id,active){
   }
 
 
-  await load();
+  await loadProducts();
+
+  updateStats();
 
 }
 
 
-/* STATUS COMANDĂ */
+/* =========================
+   COMENZI
+========================= */
 
-async function status(id,value){
+async function loadOrders(){
 
-  const {
-    error
-  } = await sb
-    .from("orders")
-    .update({
-      status:value
-    })
-    .eq("id",id);
+  const [
+    ordersResult,
+    itemsResult
+  ] = await Promise.all([
+
+    sb
+      .from("orders")
+      .select("*")
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      ),
+
+    sb
+      .from("order_items")
+      .select("*")
+
+  ]);
 
 
-  if(error){
+  if(ordersResult.error){
 
-    alert(
-      "Eroare:\\n" +
-      error.message
-    );
+    console.error(ordersResult.error);
 
-    console.error(error);
+    document.querySelector("#orders").innerHTML = `
+      <div class="message error">
+        ${escapeHtml(ordersResult.error.message)}
+      </div>
+    `;
 
     return;
   }
 
 
-  await load();
+  if(itemsResult.error){
+
+    console.error(itemsResult.error);
+
+    document.querySelector("#orders").innerHTML = `
+      <div class="message error">
+        Comenzile există, dar produsele comenzilor nu pot fi citite:
+        <br><br>
+        ${escapeHtml(itemsResult.error.message)}
+      </div>
+    `;
+
+    return;
+  }
+
+
+  orders =
+    ordersResult.data || [];
+
+  orderItems =
+    itemsResult.data || [];
+
+
+  renderOrders();
 
 }
 
 
-/* PORNEȘTE */
+/* =========================
+   AFIȘARE COMENZI
+========================= */
 
-checkSession();
+function renderOrders(){
 
-</script>
+  const el =
+    document.querySelector("#orders");
 
-</body>
-</html>
+
+  if(!orders.length){
+
+    el.innerHTML = `
+      <div class="empty">
+        Nu există comenzi momentan.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  el.innerHTML =
+    orders.map(order => {
+
+      const items =
+        orderItems.filter(
+          item =>
+            String(item.order_id) ===
+            String(order.id)
+        );
+
+
+      const statusClass =
+        "status-" +
+        (order.status || "new");
+
+
+      const statusText = {
+
+        new:"Nouă",
+
+        confirmed:"Confirmată",
+
+        shipped:"Expediată",
+
+        completed:"Finalizată",
+
+        cancelled:"Anulată"
+
+      }[order.status] || order.status;
+
+
+      return `
+
+        <div class="order">
+
+
+          <div class="order-header">
+
+            <div>
+
+              <div class="order-number">
+
+                ${escapeHtml(
+                  order.order_number ||
+                  order.id
+                )}
+
+              </div>
+
+              <div class="order-date">
+
+                ${formatDate(
+                  order.created_at
+                )}
+
+              </div>
+
+            </div>
+
+
+            <div>
+
+              <span
+                class="status-badge ${statusClass}"
+              >
+                ${escapeHtml(statusText)}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="order-customer">
+
+            <p>
+              👤
+              <b>
+                ${escapeHtml(order.customer_name)}
+              </b>
+            </p>
+
+            <p>
+              📞
+              ${escapeHtml(order.phone)}
+            </p>
+
+            <p>
+              📧
+              ${escapeHtml(order.email || "-")}
+            </p>
+
+            <p>
+              📍
+              ${escapeHtml(order.county || "")},
+              ${escapeHtml(order.city || 
