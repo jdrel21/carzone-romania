@@ -22,6 +22,19 @@ body{
   padding:25px 0 50px;
 }
 
+.login-box{
+  max-width:420px;
+  margin:80px auto;
+  background:white;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 5px 25px rgba(0,0,0,.08);
+}
+
+.login-box h1{
+  margin-top:0;
+}
+
 .header{
   display:flex;
   justify-content:space-between;
@@ -227,22 +240,8 @@ input,select{
   padding:10px 0;
 }
 
-.login{
-  max-width:420px;
-  margin:80px auto;
-}
-
-.login input{
-  margin-bottom:10px;
-}
-
-.login button{
-  width:100%;
-  margin:0;
-}
-
 .hidden{
-  display:none;
+  display:none !important;
 }
 
 @media(max-width:900px){
@@ -258,7 +257,6 @@ input,select{
   .add-grid{
     grid-template-columns:1fr 1fr;
   }
-
 }
 
 @media(max-width:600px){
@@ -272,13 +270,8 @@ input,select{
     align-items:stretch;
   }
 
-  .header-buttons{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-  }
-
   .header-buttons button{
-    width:100%;
+    flex:1;
   }
 
   .stats{
@@ -292,7 +285,6 @@ input,select{
   .add-grid{
     grid-template-columns:1fr;
   }
-
 }
 </style>
 </head>
@@ -303,37 +295,39 @@ input,select{
      LOGIN
 ========================= -->
 
-<div id="loginPage" class="wrap">
+<div id="loginPage" class="login-box">
 
-  <div class="card login">
+  <h1>CarZone Admin</h1>
 
-    <h1>CarZone Admin</h1>
+  <p>Autentificare administrator</p>
 
-    <p>Autentificare administrator</p>
+  <input
+    id="loginEmail"
+    type="email"
+    placeholder="Email"
+    autocomplete="username"
+  >
 
-    <input
-      id="loginEmail"
-      type="email"
-      placeholder="Email"
-      autocomplete="email">
+  <br><br>
 
-    <input
-      id="loginPassword"
-      type="password"
-      placeholder="Parolă"
-      autocomplete="current-password">
+  <input
+    id="loginPassword"
+    type="password"
+    placeholder="Parolă"
+    autocomplete="current-password"
+  >
 
-    <button
-      class="primary"
-      onclick="login()">
+  <br><br>
 
-      🔐 Intră în panou
+  <button
+    class="primary"
+    style="width:100%"
+    onclick="login()"
+  >
+    🔐 Intră în panou
+  </button>
 
-    </button>
-
-    <div id="loginMessage"></div>
-
-  </div>
+  <div id="loginMessage"></div>
 
 </div>
 
@@ -355,18 +349,16 @@ input,select{
 
       <button
         class="gray"
-        onclick="loadAll()">
-
+        onclick="loadAll()"
+      >
         🔄 Actualizează
-
       </button>
 
       <button
         class="red"
-        onclick="logout()">
-
+        onclick="logout()"
+      >
         🚪 Ieșire
-
       </button>
 
     </div>
@@ -374,85 +366,34 @@ input,select{
   </div>
 
 
-  <!-- =========================
-       STATISTICI
-  ========================= -->
+  <!-- STATISTICI -->
 
   <div class="stats">
 
     <div class="stat">
-
-      <div class="stat-title">
-        Produse
-      </div>
-
-      <div
-        id="statProducts"
-        class="stat-number">
-
-        0
-
-      </div>
-
+      <div class="stat-title">Produse</div>
+      <div id="statProducts" class="stat-number">0</div>
     </div>
 
-
     <div class="stat">
-
-      <div class="stat-title">
-        Produse active
-      </div>
-
-      <div
-        id="statActive"
-        class="stat-number">
-
-        0
-
-      </div>
-
+      <div class="stat-title">Produse active</div>
+      <div id="statActive" class="stat-number">0</div>
     </div>
 
-
     <div class="stat">
-
-      <div class="stat-title">
-        Comenzi
-      </div>
-
-      <div
-        id="statOrders"
-        class="stat-number">
-
-        0
-
-      </div>
-
+      <div class="stat-title">Comenzi</div>
+      <div id="statOrders" class="stat-number">0</div>
     </div>
 
-
     <div class="stat">
-
-      <div class="stat-title">
-        Vânzări
-      </div>
-
-      <div
-        id="statSales"
-        class="stat-number">
-
-        0 lei
-
-      </div>
-
+      <div class="stat-title">Vânzări</div>
+      <div id="statSales" class="stat-number">0 lei</div>
     </div>
 
   </div>
 
 
-  <!-- =========================
-       ADAUGĂ PRODUS
-  ========================= -->
+  <!-- ADAUGĂ PRODUS -->
 
   <div class="card">
 
@@ -462,32 +403,35 @@ input,select{
 
       <input
         id="name"
-        placeholder="Nume produs">
+        placeholder="Nume produs"
+      >
 
       <input
         id="price"
         type="number"
         step="0.01"
-        placeholder="Preț lei">
+        placeholder="Preț lei"
+      >
 
       <input
         id="stock"
         type="number"
-        placeholder="Stoc">
+        placeholder="Stoc"
+      >
 
       <input
         id="icon"
-        placeholder="Emoji 🚗">
+        placeholder="Emoji 🚗"
+      >
 
     </div>
 
     <button
       class="primary"
       onclick="addProduct()"
-      style="margin-top:10px">
-
+      style="margin-top:10px"
+    >
       Adaugă produs
-
     </button>
 
     <div id="productMessage"></div>
@@ -495,9 +439,7 @@ input,select{
   </div>
 
 
-  <!-- =========================
-       PRODUSE
-  ========================= -->
+  <!-- PRODUSE -->
 
   <div class="card">
 
@@ -510,9 +452,7 @@ input,select{
   </div>
 
 
-  <!-- =========================
-       COMENZI
-  ========================= -->
+  <!-- COMENZI -->
 
   <div class="card">
 
@@ -532,6 +472,10 @@ input,select{
 <script src="../config.js"></script>
 
 <script>
+
+/* =========================
+   SUPABASE
+========================= */
 
 var cfg = window.CARZONE_CONFIG;
 
@@ -578,89 +522,7 @@ function dateFormat(value){
 
   if(!value) return "-";
 
-  return new Date(value).toLocaleString(
-    "ro-RO"
-  );
-
-}
-
-
-/* =========================
-   VERIFICĂ ADMIN
-========================= */
-
-async function checkAdmin(){
-
-  var sessionResult =
-    await sb.auth.getSession();
-
-  if(sessionResult.error){
-
-    showLogin(
-      sessionResult.error.message
-    );
-
-    return false;
-
-  }
-
-  var session =
-    sessionResult.data.session;
-
-
-  if(!session){
-
-    showLogin();
-
-    return false;
-
-  }
-
-
-  var user =
-    session.user;
-
-
-  var adminResult =
-    await sb
-      .from("admin_users")
-      .select("user_id")
-      .eq("user_id",user.id)
-      .maybeSingle();
-
-
-  if(adminResult.error){
-
-    console.error(adminResult.error);
-
-    showLogin(
-      "Nu pot verifica administratorul: " +
-      adminResult.error.message
-    );
-
-    await sb.auth.signOut();
-
-    return false;
-
-  }
-
-
-  if(!adminResult.data){
-
-    showLogin(
-      "Acest cont nu este administrator."
-    );
-
-    await sb.auth.signOut();
-
-    return false;
-
-  }
-
-
-  showAdmin();
-
-  return true;
+  return new Date(value).toLocaleString("ro-RO");
 
 }
 
@@ -672,20 +534,13 @@ async function checkAdmin(){
 async function login(){
 
   var email =
-    document.getElementById("loginEmail")
-      .value
-      .trim();
+    document.getElementById("loginEmail").value.trim();
 
   var password =
-    document.getElementById("loginPassword")
-      .value;
-
+    document.getElementById("loginPassword").value;
 
   var message =
     document.getElementById("loginMessage");
-
-
-  message.innerHTML = "";
 
 
   if(!email || !password){
@@ -701,8 +556,8 @@ async function login(){
 
 
   message.innerHTML =
-    '<div class="loading">' +
-    'Se autentifică...' +
+    '<div class="message">' +
+    'Se verifică datele...' +
     '</div>';
 
 
@@ -722,72 +577,123 @@ async function login(){
       esc(result.error.message) +
       '</div>';
 
+    console.error(result.error);
+
     return;
 
   }
 
 
-  var ok =
-    await checkAdmin();
+  await checkAdmin();
 
-
-  if(ok){
-
-    await loadAll();
-
-  }
 
 }
 
 
 /* =========================
-   ARATĂ LOGIN
+   VERIFICARE ADMIN
 ========================= */
 
-function showLogin(message){
+async function checkAdmin(){
 
-  document
-    .getElementById("loginPage")
-    .classList
-    .remove("hidden");
+  var sessionResult =
+    await sb.auth.getSession();
 
-
-  document
-    .getElementById("adminPage")
-    .classList
-    .add("hidden");
+  var session =
+    sessionResult.data.session;
 
 
-  if(message){
+  if(!session){
 
-    document.getElementById(
-      "loginMessage"
-    ).innerHTML =
+    showLogin();
+
+    return;
+
+  }
+
+
+  var adminResult =
+    await sb
+      .from("admin_users")
+      .select("user_id")
+      .eq("user_id",session.user.id)
+      .maybeSingle();
+
+
+  if(adminResult.error){
+
+    console.error(adminResult.error);
+
+    document.getElementById("loginMessage").innerHTML =
       '<div class="message error">' +
-      esc(message) +
+      esc(adminResult.error.message) +
       '</div>';
 
+    await sb.auth.signOut();
+
+    showLogin();
+
+    return;
+
   }
+
+
+  if(!adminResult.data){
+
+    document.getElementById("loginMessage").innerHTML =
+      '<div class="message error">' +
+      'Acest cont nu este administrator.' +
+      '</div>';
+
+    await sb.auth.signOut();
+
+    showLogin();
+
+    return;
+
+  }
+
+
+  document
+    .getElementById("loginPage")
+    .classList.add("hidden");
+
+  document
+    .getElementById("adminPage")
+    .classList.remove("hidden");
+
+
+  await loadAll();
 
 }
 
 
 /* =========================
-   ARATĂ ADMIN
+   LOGOUT
 ========================= */
 
-function showAdmin(){
+async function logout(){
 
-  document
-    .getElementById("loginPage")
-    .classList
-    .add("hidden");
+  await sb.auth.signOut();
 
+  products = [];
+  orders = [];
+  orderItems = [];
+
+  showLogin();
+
+}
+
+
+function showLogin(){
 
   document
     .getElementById("adminPage")
-    .classList
-    .remove("hidden");
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginPage")
+    .classList.remove("hidden");
 
 }
 
@@ -802,17 +708,12 @@ async function loadProducts(){
     await sb
       .from("products")
       .select("*")
-      .order(
-        "created_at",
-        {ascending:false}
-      );
+      .order("created_at",{ascending:false});
 
 
   if(result.error){
 
-    document.getElementById(
-      "products"
-    ).innerHTML =
+    document.getElementById("products").innerHTML =
       '<div class="message error">' +
       esc(result.error.message) +
       '</div>';
@@ -842,9 +743,7 @@ function renderProducts(){
   if(products.length === 0){
 
     el.innerHTML =
-      '<div class="loading">' +
-      'Nu există produse.' +
-      '</div>';
+      '<div class="loading">Nu există produse.</div>';
 
     return;
 
@@ -874,19 +773,16 @@ function renderProducts(){
           </div>`
         }
 
-
         <div class="product-name">
           ${esc(p.name)}
         </div>
-
 
         <div class="product-fields">
 
           <input
             id="name_${p.id}"
             value="${esc(p.name)}"
-            placeholder="Nume produs">
-
+            placeholder="Nume">
 
           <input
             id="price_${p.id}"
@@ -894,12 +790,10 @@ function renderProducts(){
             step="0.01"
             value="${p.price}">
 
-
           <input
             id="stock_${p.id}"
             type="number"
             value="${p.stock}">
-
 
           <input
             id="icon_${p.id}"
@@ -918,13 +812,11 @@ function renderProducts(){
             type="file"
             accept="image/*">
 
-
           <button
             class="primary"
-            onclick="uploadImage('${p.id}')">
-
+            onclick="uploadImage('${p.id}')"
+          >
             📷 Încarcă poza
-
           </button>
 
         </div>
@@ -947,21 +839,16 @@ function renderProducts(){
 
           <button
             class="primary"
-            onclick="saveProduct('${p.id}')">
-
+            onclick="saveProduct('${p.id}')"
+          >
             💾 Salvează
-
           </button>
-
 
           <button
             class="${p.active ? "red" : "green"}"
-            onclick="toggleProduct('${p.id}',${p.active})">
-
-            ${p.active
-              ? "Dezactivează"
-              : "Activează"}
-
+            onclick="toggleProduct('${p.id}',${p.active})"
+          >
+            ${p.active ? "Dezactivează" : "Activează"}
           </button>
 
         </div>
@@ -975,7 +862,6 @@ function renderProducts(){
 
   html += "</div>";
 
-
   el.innerHTML = html;
 
 }
@@ -988,43 +874,25 @@ function renderProducts(){
 async function addProduct(){
 
   var name =
-    document
-      .getElementById("name")
-      .value
-      .trim();
-
+    document.getElementById("name").value.trim();
 
   var price =
-    Number(
-      document.getElementById("price").value
-    );
-
+    Number(document.getElementById("price").value);
 
   var stock =
-    Number(
-      document.getElementById("stock").value
-    );
-
+    Number(document.getElementById("stock").value);
 
   var icon =
-    document
-      .getElementById("icon")
-      .value
-      .trim() || "🚗";
-
+    document.getElementById("icon").value.trim() || "🚗";
 
   var message =
-    document.getElementById(
-      "productMessage"
-    );
+    document.getElementById("productMessage");
 
 
   if(!name){
 
     message.innerHTML =
-      '<div class="message error">' +
-      'Introdu numele produsului.' +
-      '</div>';
+      '<div class="message error">Introdu numele produsului.</div>';
 
     return;
 
@@ -1034,24 +902,17 @@ async function addProduct(){
   if(!Number.isFinite(price) || price < 0){
 
     message.innerHTML =
-      '<div class="message error">' +
-      'Preț invalid.' +
-      '</div>';
+      '<div class="message error">Preț invalid.</div>';
 
     return;
 
   }
 
 
-  if(
-    !Number.isInteger(stock) ||
-    stock < 0
-  ){
+  if(!Number.isInteger(stock) || stock < 0){
 
     message.innerHTML =
-      '<div class="message error">' +
-      'Stoc invalid.' +
-      '</div>';
+      '<div class="message error">Stoc invalid.</div>';
 
     return;
 
@@ -1092,14 +953,13 @@ async function addProduct(){
     '</div>';
 
 
-  document.getElementById("name").value="";
-  document.getElementById("price").value="";
-  document.getElementById("stock").value="";
-  document.getElementById("icon").value="";
+  document.getElementById("name").value = "";
+  document.getElementById("price").value = "";
+  document.getElementById("stock").value = "";
+  document.getElementById("icon").value = "";
 
 
   await loadProducts();
-
   updateStats();
 
 }
@@ -1112,63 +972,16 @@ async function addProduct(){
 async function saveProduct(id){
 
   var name =
-    document
-      .getElementById("name_" + id)
-      .value
-      .trim();
-
+    document.getElementById("name_" + id).value.trim();
 
   var price =
-    Number(
-      document
-        .getElementById("price_" + id)
-        .value
-    );
-
+    Number(document.getElementById("price_" + id).value);
 
   var stock =
-    Number(
-      document
-        .getElementById("stock_" + id)
-        .value
-    );
-
+    Number(document.getElementById("stock_" + id).value);
 
   var icon =
-    document
-      .getElementById("icon_" + id)
-      .value
-      .trim() || "🚗";
-
-
-  if(!name){
-
-    alert("Numele produsului este obligatoriu.");
-
-    return;
-
-  }
-
-
-  if(!Number.isFinite(price) || price < 0){
-
-    alert("Preț invalid.");
-
-    return;
-
-  }
-
-
-  if(
-    !Number.isInteger(stock) ||
-    stock < 0
-  ){
-
-    alert("Stoc invalid.");
-
-    return;
-
-  }
+    document.getElementById("icon_" + id).value.trim() || "🚗";
 
 
   var result =
@@ -1192,8 +1005,6 @@ async function saveProduct(id){
       result.error.message
     );
 
-    console.error(result.error);
-
     return;
 
   }
@@ -1202,32 +1013,24 @@ async function saveProduct(id){
   alert("Produs salvat.");
 
   await loadProducts();
-
   updateStats();
 
 }
 
 
 /* =========================
-   POZĂ PRODUS
+   UPLOAD POZĂ
 ========================= */
 
 async function uploadImage(id){
 
   var input =
-    document.getElementById(
-      "image_" + id
-    );
+    document.getElementById("image_" + id);
 
 
-  if(
-    !input.files ||
-    !input.files[0]
-  ){
+  if(!input.files || !input.files[0]){
 
-    alert(
-      "Alege mai întâi o poză."
-    );
+    alert("Alege mai întâi o poză.");
 
     return;
 
@@ -1238,27 +1041,18 @@ async function uploadImage(id){
     input.files[0];
 
 
-  if(
-    !file.type.startsWith("image/")
-  ){
+  if(!file.type.startsWith("image/")){
 
-    alert(
-      "Te rog alege o imagine."
-    );
+    alert("Fișierul trebuie să fie o imagine.");
 
     return;
 
   }
 
 
-  if(
-    file.size >
-    5 * 1024 * 1024
-  ){
+  if(file.size > 5 * 1024 * 1024){
 
-    alert(
-      "Poza trebuie să aibă maximum 5 MB."
-    );
+    alert("Poza trebuie să aibă maximum 5 MB.");
 
     return;
 
@@ -1273,11 +1067,7 @@ async function uploadImage(id){
 
 
   var fileName =
-    id +
-    "-" +
-    Date.now() +
-    "." +
-    extension;
+    id + "-" + Date.now() + "." + extension;
 
 
   var upload =
@@ -1321,9 +1111,7 @@ async function uploadImage(id){
     await sb
       .from("products")
       .update({
-
         image_url:imageUrl
-
       })
       .eq("id",id);
 
@@ -1331,7 +1119,7 @@ async function uploadImage(id){
   if(update.error){
 
     alert(
-      "Poza a fost încărcată, dar nu am putut salva adresa ei:\n\n" +
+      "Poza a fost încărcată, dar nu am putut salva adresa:\n\n" +
       update.error.message
     );
 
@@ -1342,10 +1130,7 @@ async function uploadImage(id){
   }
 
 
-  alert(
-    "Poza a fost încărcată cu succes!"
-  );
-
+  alert("Poza a fost încărcată cu succes!");
 
   await loadProducts();
 
@@ -1356,10 +1141,7 @@ async function uploadImage(id){
    ACTIVEAZĂ / DEZACTIVEAZĂ
 ========================= */
 
-async function toggleProduct(
-  id,
-  active
-){
+async function toggleProduct(id,active){
 
   var result =
     await sb
@@ -1377,15 +1159,12 @@ async function toggleProduct(
       result.error.message
     );
 
-    console.error(result.error);
-
     return;
 
   }
 
 
   await loadProducts();
-
   updateStats();
 
 }
@@ -1401,24 +1180,17 @@ async function loadOrders(){
     await sb
       .from("orders")
       .select("*")
-      .order(
-        "created_at",
-        {ascending:false}
-      );
+      .order("created_at",{ascending:false});
 
 
   if(ordersResult.error){
 
-    document.getElementById(
-      "orders"
-    ).innerHTML =
+    document.getElementById("orders").innerHTML =
       '<div class="message error">' +
       esc(ordersResult.error.message) +
       '</div>';
 
-    console.error(
-      ordersResult.error
-    );
+    console.error(ordersResult.error);
 
     return;
 
@@ -1433,16 +1205,12 @@ async function loadOrders(){
 
   if(itemsResult.error){
 
-    document.getElementById(
-      "orders"
-    ).innerHTML =
+    document.getElementById("orders").innerHTML =
       '<div class="message error">' +
       esc(itemsResult.error.message) +
       '</div>';
 
-    console.error(
-      itemsResult.error
-    );
+    console.error(itemsResult.error);
 
     return;
 
@@ -1465,17 +1233,13 @@ async function loadOrders(){
 function renderOrders(){
 
   var el =
-    document.getElementById(
-      "orders"
-    );
+    document.getElementById("orders");
 
 
   if(orders.length === 0){
 
     el.innerHTML =
-      '<div class="loading">' +
-      'Nu există comenzi.' +
-      '</div>';
+      '<div class="loading">Nu există comenzi.</div>';
 
     return;
 
@@ -1488,26 +1252,12 @@ function renderOrders(){
   orders.forEach(function(order){
 
     var items =
-      orderItems.filter(
-        function(item){
+      orderItems.filter(function(item){
 
-          return String(item.order_id) ===
-            String(order.id);
+        return String(item.order_id) ===
+          String(order.id);
 
-        }
-      );
-
-
-    var statusText = {
-
-      new:"Nouă",
-      confirmed:"Confirmată",
-      shipped:"Expediată",
-      completed:"Finalizată",
-      cancelled:"Anulată"
-
-    }[order.status] ||
-      order.status;
+      });
 
 
     html += `
@@ -1516,22 +1266,119 @@ function renderOrders(){
 
         <div class="order-title">
 
-          Comanda
-          ${esc(
-            order.order_number ||
-            order.id
-          )}
+          🛒 Comanda
+          ${esc(order.order_number || order.id)}
 
         </div>
 
-
         <p style="color:#6b7280">
 
-          ${dateFormat(
-            order.created_at
-          )}
+          ${dateFormat(order.created_at)}
 
         </p>
 
 
-        <div clas
+        <div class="order-info">
+
+          <p>
+            👤 <b>
+            ${esc(order.customer_name)}
+            </b>
+          </p>
+
+          <p>
+            📞 ${esc(order.phone)}
+          </p>
+
+          <p>
+            📧 ${esc(order.email || "-")}
+          </p>
+
+          <p>
+            📍
+            ${esc(order.county || "")},
+            ${esc(order.city || "")},
+            ${esc(order.address || "")}
+          </p>
+
+          <p>
+            💳 ${esc(order.payment_method || "-")}
+          </p>
+
+        </div>
+
+
+        <h3>Produse comandate</h3>
+
+    `;
+
+
+    if(items.length === 0){
+
+      html +=
+        "<p>Nu există produse asociate.</p>";
+
+    }else{
+
+      items.forEach(function(item){
+
+        html += `
+
+          <div class="order-item">
+
+            <span>
+              ${esc(item.name)}
+              × ${item.quantity}
+            </span>
+
+            <span>
+              ${money(
+                Number(item.unit_price) *
+                Number(item.quantity)
+              )}
+            </span>
+
+          </div>
+
+        `;
+
+      });
+
+    }
+
+
+    html += `
+
+        <div class="total">
+
+          <span>Total</span>
+
+          <span>
+            ${money(order.total)}
+          </span>
+
+        </div>
+
+
+        <div style="margin-top:15px">
+
+          <select
+            onchange="changeStatus('${order.id}',this.value)"
+          >
+
+            <option
+              value="new"
+              ${order.status==="new"?"selected":""}>
+              Nouă
+            </option>
+
+            <option
+              value="confirmed"
+              ${order.status==="confirmed"?"selected":""}>
+              Confirmată
+            </option>
+
+            <option
+              value="shipped"
+              ${order.status==="shipped"?"selected":""}>
+             
