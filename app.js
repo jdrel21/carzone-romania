@@ -184,33 +184,34 @@ document.querySelector('#orderForm').onsubmit = async e => {
     0
   );
 
-  let { data, error } = await sb
-    .from('orders')
-    .insert({
-      customer_name: f.name,
-      phone: f.phone,
-      email: f.email,
-      county: f.county,
-      city: f.city,
-      address: f.address,
-      payment_method: f.payment,
-      total: total,
-      status: 'new'
-    })
-    .select()
-    .single();
+  const orderId = crypto.randomUUID();
 
-  if (error) {
-    return alert(
-      'Eroare la comandă: ' +
-      error.message
-    );
-  }
+let { error } = await sb
+  .from('orders')
+  .insert({
+    id: orderId,
+    customer_name: f.name,
+    phone: f.phone,
+    email: f.email,
+    county: f.county,
+    city: f.city,
+    address: f.address,
+    payment_method: f.payment,
+    total: total,
+    status: 'new'
+  });
 
-  let rows = items.map(x => ({
-    ...x,
-    order_id: data.id
-  }));
+if (error) {
+  return alert(
+    'Eroare la comandă: ' +
+    error.message
+  );
+}
+
+let rows = items.map(x => ({
+  ...x,
+  order_id: orderId
+}));
 
   let r = await sb
     .from('order_items')
