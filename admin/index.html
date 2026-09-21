@@ -227,7 +227,26 @@ input,select{
   padding:10px 0;
 }
 
+.login{
+  max-width:420px;
+  margin:80px auto;
+}
+
+.login input{
+  margin-bottom:10px;
+}
+
+.login button{
+  width:100%;
+  margin:0;
+}
+
+.hidden{
+  display:none;
+}
+
 @media(max-width:900px){
+
   .stats{
     grid-template-columns:1fr 1fr;
   }
@@ -239,6 +258,7 @@ input,select{
   .add-grid{
     grid-template-columns:1fr 1fr;
   }
+
 }
 
 @media(max-width:600px){
@@ -252,8 +272,13 @@ input,select{
     align-items:stretch;
   }
 
+  .header-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+
   .header-buttons button{
-    flex:1;
+    width:100%;
   }
 
   .stats{
@@ -274,128 +299,230 @@ input,select{
 
 <body>
 
-<div class="wrap">
+<!-- =========================
+     LOGIN
+========================= -->
 
-<div class="header">
+<div id="loginPage" class="wrap">
 
-<div>
-<h1>CarZone Admin</h1>
-<p>Panoul de administrare</p>
-</div>
+  <div class="card login">
 
-<div class="header-buttons">
+    <h1>CarZone Admin</h1>
 
-<button
-class="gray"
-onclick="loadAll()">
-🔄 Actualizează
-</button>
+    <p>Autentificare administrator</p>
 
-<button
-class="red"
-onclick="logout()">
-🚪 Ieșire
-</button>
+    <input
+      id="loginEmail"
+      type="email"
+      placeholder="Email"
+      autocomplete="email">
 
-</div>
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="Parolă"
+      autocomplete="current-password">
 
-</div>
+    <button
+      class="primary"
+      onclick="login()">
 
+      🔐 Intră în panou
 
-<!-- STATISTICI -->
+    </button>
 
-<div class="stats">
+    <div id="loginMessage"></div>
 
-<div class="stat">
-<div class="stat-title">Produse</div>
-<div id="statProducts" class="stat-number">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-title">Produse active</div>
-<div id="statActive" class="stat-number">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-title">Comenzi</div>
-<div id="statOrders" class="stat-number">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-title">Vânzări</div>
-<div id="statSales" class="stat-number">0 lei</div>
-</div>
+  </div>
 
 </div>
 
 
-<!-- ADAUGARE -->
+<!-- =========================
+     ADMIN PANEL
+========================= -->
 
-<div class="card">
+<div id="adminPage" class="wrap hidden">
 
-<h2>➕ Adaugă produs</h2>
+  <div class="header">
 
-<div class="add-grid">
+    <div>
+      <h1>CarZone Admin</h1>
+      <p>Panoul de administrare</p>
+    </div>
 
-<input
-id="name"
-placeholder="Nume produs">
+    <div class="header-buttons">
 
-<input
-id="price"
-type="number"
-step="0.01"
-placeholder="Preț lei">
+      <button
+        class="gray"
+        onclick="loadAll()">
 
-<input
-id="stock"
-type="number"
-placeholder="Stoc">
+        🔄 Actualizează
 
-<input
-id="icon"
-placeholder="Emoji 🚗">
+      </button>
 
-</div>
+      <button
+        class="red"
+        onclick="logout()">
 
-<button
-class="primary"
-onclick="addProduct()"
-style="margin-top:10px">
+        🚪 Ieșire
 
-Adaugă produs
+      </button>
 
-</button>
+    </div>
 
-<div id="productMessage"></div>
-
-</div>
+  </div>
 
 
-<!-- PRODUSE -->
+  <!-- =========================
+       STATISTICI
+  ========================= -->
 
-<div class="card">
+  <div class="stats">
 
-<h2>📦 Produse</h2>
+    <div class="stat">
 
-<div id="products">
-Se încarcă produsele...
-</div>
+      <div class="stat-title">
+        Produse
+      </div>
 
-</div>
+      <div
+        id="statProducts"
+        class="stat-number">
+
+        0
+
+      </div>
+
+    </div>
 
 
-<!-- COMENZI -->
+    <div class="stat">
 
-<div class="card">
+      <div class="stat-title">
+        Produse active
+      </div>
 
-<h2>🛒 Comenzi</h2>
+      <div
+        id="statActive"
+        class="stat-number">
 
-<div id="orders">
-Se încarcă comenzile...
-</div>
+        0
 
-</div>
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-title">
+        Comenzi
+      </div>
+
+      <div
+        id="statOrders"
+        class="stat-number">
+
+        0
+
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-title">
+        Vânzări
+      </div>
+
+      <div
+        id="statSales"
+        class="stat-number">
+
+        0 lei
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       ADAUGĂ PRODUS
+  ========================= -->
+
+  <div class="card">
+
+    <h2>➕ Adaugă produs</h2>
+
+    <div class="add-grid">
+
+      <input
+        id="name"
+        placeholder="Nume produs">
+
+      <input
+        id="price"
+        type="number"
+        step="0.01"
+        placeholder="Preț lei">
+
+      <input
+        id="stock"
+        type="number"
+        placeholder="Stoc">
+
+      <input
+        id="icon"
+        placeholder="Emoji 🚗">
+
+    </div>
+
+    <button
+      class="primary"
+      onclick="addProduct()"
+      style="margin-top:10px">
+
+      Adaugă produs
+
+    </button>
+
+    <div id="productMessage"></div>
+
+  </div>
+
+
+  <!-- =========================
+       PRODUSE
+  ========================= -->
+
+  <div class="card">
+
+    <h2>📦 Produse</h2>
+
+    <div id="products">
+      Se încarcă produsele...
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       COMENZI
+  ========================= -->
+
+  <div class="card">
+
+    <h2>🛒 Comenzi</h2>
+
+    <div id="orders">
+      Se încarcă comenzile...
+    </div>
+
+  </div>
 
 </div>
 
@@ -459,19 +586,233 @@ function dateFormat(value){
 
 
 /* =========================
+   VERIFICĂ ADMIN
+========================= */
+
+async function checkAdmin(){
+
+  var sessionResult =
+    await sb.auth.getSession();
+
+  if(sessionResult.error){
+
+    showLogin(
+      sessionResult.error.message
+    );
+
+    return false;
+
+  }
+
+  var session =
+    sessionResult.data.session;
+
+
+  if(!session){
+
+    showLogin();
+
+    return false;
+
+  }
+
+
+  var user =
+    session.user;
+
+
+  var adminResult =
+    await sb
+      .from("admin_users")
+      .select("user_id")
+      .eq("user_id",user.id)
+      .maybeSingle();
+
+
+  if(adminResult.error){
+
+    console.error(adminResult.error);
+
+    showLogin(
+      "Nu pot verifica administratorul: " +
+      adminResult.error.message
+    );
+
+    await sb.auth.signOut();
+
+    return false;
+
+  }
+
+
+  if(!adminResult.data){
+
+    showLogin(
+      "Acest cont nu este administrator."
+    );
+
+    await sb.auth.signOut();
+
+    return false;
+
+  }
+
+
+  showAdmin();
+
+  return true;
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+async function login(){
+
+  var email =
+    document.getElementById("loginEmail")
+      .value
+      .trim();
+
+  var password =
+    document.getElementById("loginPassword")
+      .value;
+
+
+  var message =
+    document.getElementById("loginMessage");
+
+
+  message.innerHTML = "";
+
+
+  if(!email || !password){
+
+    message.innerHTML =
+      '<div class="message error">' +
+      'Introdu emailul și parola.' +
+      '</div>';
+
+    return;
+
+  }
+
+
+  message.innerHTML =
+    '<div class="loading">' +
+    'Se autentifică...' +
+    '</div>';
+
+
+  var result =
+    await sb.auth.signInWithPassword({
+
+      email:email,
+      password:password
+
+    });
+
+
+  if(result.error){
+
+    message.innerHTML =
+      '<div class="message error">' +
+      esc(result.error.message) +
+      '</div>';
+
+    return;
+
+  }
+
+
+  var ok =
+    await checkAdmin();
+
+
+  if(ok){
+
+    await loadAll();
+
+  }
+
+}
+
+
+/* =========================
+   ARATĂ LOGIN
+========================= */
+
+function showLogin(message){
+
+  document
+    .getElementById("loginPage")
+    .classList
+    .remove("hidden");
+
+
+  document
+    .getElementById("adminPage")
+    .classList
+    .add("hidden");
+
+
+  if(message){
+
+    document.getElementById(
+      "loginMessage"
+    ).innerHTML =
+      '<div class="message error">' +
+      esc(message) +
+      '</div>';
+
+  }
+
+}
+
+
+/* =========================
+   ARATĂ ADMIN
+========================= */
+
+function showAdmin(){
+
+  document
+    .getElementById("loginPage")
+    .classList
+    .add("hidden");
+
+
+  document
+    .getElementById("adminPage")
+    .classList
+    .remove("hidden");
+
+}
+
+
+/* =========================
    PRODUSE
 ========================= */
 
 async function loadProducts(){
 
-  var result = await sb
-    .from("products")
-    .select("*")
-    .order("created_at",{ascending:false});
+  var result =
+    await sb
+      .from("products")
+      .select("*")
+      .order(
+        "created_at",
+        {ascending:false}
+      );
+
 
   if(result.error){
 
-    document.getElementById("products").innerHTML =
+    document.getElementById(
+      "products"
+    ).innerHTML =
       '<div class="message error">' +
       esc(result.error.message) +
       '</div>';
@@ -482,7 +823,10 @@ async function loadProducts(){
 
   }
 
-  products = result.data || [];
+
+  products =
+    result.data || [];
+
 
   renderProducts();
 
@@ -494,16 +838,22 @@ function renderProducts(){
   var el =
     document.getElementById("products");
 
+
   if(products.length === 0){
 
     el.innerHTML =
-      '<div class="loading">Nu există produse.</div>';
+      '<div class="loading">' +
+      'Nu există produse.' +
+      '</div>';
 
     return;
 
   }
 
-  var html = '<div class="products">';
+
+  var html =
+    '<div class="products">';
+
 
   products.forEach(function(p){
 
@@ -524,16 +874,19 @@ function renderProducts(){
           </div>`
         }
 
+
         <div class="product-name">
           ${esc(p.name)}
         </div>
+
 
         <div class="product-fields">
 
           <input
             id="name_${p.id}"
             value="${esc(p.name)}"
-            placeholder="Nume">
+            placeholder="Nume produs">
+
 
           <input
             id="price_${p.id}"
@@ -541,10 +894,12 @@ function renderProducts(){
             step="0.01"
             value="${p.price}">
 
+
           <input
             id="stock_${p.id}"
             type="number"
             value="${p.stock}">
+
 
           <input
             id="icon_${p.id}"
@@ -563,6 +918,7 @@ function renderProducts(){
             type="file"
             accept="image/*">
 
+
           <button
             class="primary"
             onclick="uploadImage('${p.id}')">
@@ -575,10 +931,15 @@ function renderProducts(){
 
 
         <p>
-          ${p.active
-            ? '<span style="color:#16a34a">● Activ</span>'
-            : '<span style="color:#dc2626">● Dezactivat</span>'
+
+          ${
+            p.active
+            ?
+            '<span style="color:#16a34a">● Activ</span>'
+            :
+            '<span style="color:#dc2626">● Dezactivat</span>'
           }
+
         </p>
 
 
@@ -592,11 +953,14 @@ function renderProducts(){
 
           </button>
 
+
           <button
             class="${p.active ? "red" : "green"}"
             onclick="toggleProduct('${p.id}',${p.active})">
 
-            ${p.active ? "Dezactivează" : "Activează"}
+            ${p.active
+              ? "Dezactivează"
+              : "Activează"}
 
           </button>
 
@@ -608,7 +972,9 @@ function renderProducts(){
 
   });
 
+
   html += "</div>";
+
 
   el.innerHTML = html;
 
@@ -622,25 +988,43 @@ function renderProducts(){
 async function addProduct(){
 
   var name =
-    document.getElementById("name").value.trim();
+    document
+      .getElementById("name")
+      .value
+      .trim();
+
 
   var price =
-    Number(document.getElementById("price").value);
+    Number(
+      document.getElementById("price").value
+    );
+
 
   var stock =
-    Number(document.getElementById("stock").value);
+    Number(
+      document.getElementById("stock").value
+    );
+
 
   var icon =
-    document.getElementById("icon").value.trim() || "🚗";
+    document
+      .getElementById("icon")
+      .value
+      .trim() || "🚗";
+
 
   var message =
-    document.getElementById("productMessage");
+    document.getElementById(
+      "productMessage"
+    );
 
 
   if(!name){
 
     message.innerHTML =
-      '<div class="message error">Introdu numele produsului.</div>';
+      '<div class="message error">' +
+      'Introdu numele produsului.' +
+      '</div>';
 
     return;
 
@@ -650,34 +1034,42 @@ async function addProduct(){
   if(!Number.isFinite(price) || price < 0){
 
     message.innerHTML =
-      '<div class="message error">Preț invalid.</div>';
+      '<div class="message error">' +
+      'Preț invalid.' +
+      '</div>';
 
     return;
 
   }
 
 
-  if(!Number.isInteger(stock) || stock < 0){
+  if(
+    !Number.isInteger(stock) ||
+    stock < 0
+  ){
 
     message.innerHTML =
-      '<div class="message error">Stoc invalid.</div>';
+      '<div class="message error">' +
+      'Stoc invalid.' +
+      '</div>';
 
     return;
 
   }
 
 
-  var result = await sb
-    .from("products")
-    .insert({
+  var result =
+    await sb
+      .from("products")
+      .insert({
 
-      name:name,
-      price:price,
-      stock:stock,
-      icon:icon,
-      active:true
+        name:name,
+        price:price,
+        stock:stock,
+        icon:icon,
+        active:true
 
-    });
+      });
 
 
   if(result.error){
@@ -695,13 +1087,15 @@ async function addProduct(){
 
 
   message.innerHTML =
-    '<div class="message ok">Produs adăugat cu succes.</div>';
+    '<div class="message ok">' +
+    'Produs adăugat cu succes.' +
+    '</div>';
 
 
-  document.getElementById("name").value = "";
-  document.getElementById("price").value = "";
-  document.getElementById("stock").value = "";
-  document.getElementById("icon").value = "";
+  document.getElementById("name").value="";
+  document.getElementById("price").value="";
+  document.getElementById("stock").value="";
+  document.getElementById("icon").value="";
 
 
   await loadProducts();
@@ -718,29 +1112,77 @@ async function addProduct(){
 async function saveProduct(id){
 
   var name =
-    document.getElementById("name_" + id).value.trim();
+    document
+      .getElementById("name_" + id)
+      .value
+      .trim();
+
 
   var price =
-    Number(document.getElementById("price_" + id).value);
+    Number(
+      document
+        .getElementById("price_" + id)
+        .value
+    );
+
 
   var stock =
-    Number(document.getElementById("stock_" + id).value);
+    Number(
+      document
+        .getElementById("stock_" + id)
+        .value
+    );
+
 
   var icon =
-    document.getElementById("icon_" + id).value.trim() || "🚗";
+    document
+      .getElementById("icon_" + id)
+      .value
+      .trim() || "🚗";
 
 
-  var result = await sb
-    .from("products")
-    .update({
+  if(!name){
 
-      name:name,
-      price:price,
-      stock:stock,
-      icon:icon
+    alert("Numele produsului este obligatoriu.");
 
-    })
-    .eq("id",id);
+    return;
+
+  }
+
+
+  if(!Number.isFinite(price) || price < 0){
+
+    alert("Preț invalid.");
+
+    return;
+
+  }
+
+
+  if(
+    !Number.isInteger(stock) ||
+    stock < 0
+  ){
+
+    alert("Stoc invalid.");
+
+    return;
+
+  }
+
+
+  var result =
+    await sb
+      .from("products")
+      .update({
+
+        name:name,
+        price:price,
+        stock:stock,
+        icon:icon
+
+      })
+      .eq("id",id);
 
 
   if(result.error){
@@ -749,6 +1191,8 @@ async function saveProduct(id){
       "Eroare:\n\n" +
       result.error.message
     );
+
+    console.error(result.error);
 
     return;
 
@@ -771,32 +1215,50 @@ async function saveProduct(id){
 async function uploadImage(id){
 
   var input =
-    document.getElementById("image_" + id);
-
-  if(!input.files || !input.files[0]){
-
-    alert("Alege mai întâi o poză.");
-
-    return;
-
-  }
+    document.getElementById(
+      "image_" + id
+    );
 
 
-  var file = input.files[0];
+  if(
+    !input.files ||
+    !input.files[0]
+  ){
 
-
-  if(!file.type.startsWith("image/")){
-
-    alert("Te rog alege o imagine.");
+    alert(
+      "Alege mai întâi o poză."
+    );
 
     return;
 
   }
 
 
-  if(file.size > 5 * 1024 * 1024){
+  var file =
+    input.files[0];
 
-    alert("Poza trebuie să aibă maximum 5 MB.");
+
+  if(
+    !file.type.startsWith("image/")
+  ){
+
+    alert(
+      "Te rog alege o imagine."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    file.size >
+    5 * 1024 * 1024
+  ){
+
+    alert(
+      "Poza trebuie să aibă maximum 5 MB."
+    );
 
     return;
 
@@ -804,24 +1266,31 @@ async function uploadImage(id){
 
 
   var extension =
-    file.name.split(".").pop().toLowerCase();
+    file.name
+      .split(".")
+      .pop()
+      .toLowerCase();
 
 
   var fileName =
-    id + "-" + Date.now() + "." + extension;
-
-
-  var filePath =
-    fileName;
+    id +
+    "-" +
+    Date.now() +
+    "." +
+    extension;
 
 
   var upload =
     await sb.storage
       .from("products")
-      .upload(filePath,file,{
-        upsert:true,
-        contentType:file.type
-      });
+      .upload(
+        fileName,
+        file,
+        {
+          upsert:true,
+          contentType:file.type
+        }
+      );
 
 
   if(upload.error){
@@ -841,7 +1310,7 @@ async function uploadImage(id){
   var publicData =
     sb.storage
       .from("products")
-      .getPublicUrl(filePath);
+      .getPublicUrl(fileName);
 
 
   var imageUrl =
@@ -852,7 +1321,9 @@ async function uploadImage(id){
     await sb
       .from("products")
       .update({
+
         image_url:imageUrl
+
       })
       .eq("id",id);
 
@@ -871,7 +1342,9 @@ async function uploadImage(id){
   }
 
 
-  alert("Poza a fost încărcată cu succes!");
+  alert(
+    "Poza a fost încărcată cu succes!"
+  );
 
 
   await loadProducts();
@@ -883,14 +1356,18 @@ async function uploadImage(id){
    ACTIVEAZĂ / DEZACTIVEAZĂ
 ========================= */
 
-async function toggleProduct(id,active){
+async function toggleProduct(
+  id,
+  active
+){
 
-  var result = await sb
-    .from("products")
-    .update({
-      active:!active
-    })
-    .eq("id",id);
+  var result =
+    await sb
+      .from("products")
+      .update({
+        active:!active
+      })
+      .eq("id",id);
 
 
   if(result.error){
@@ -899,6 +1376,8 @@ async function toggleProduct(id,active){
       "Eroare:\n\n" +
       result.error.message
     );
+
+    console.error(result.error);
 
     return;
 
@@ -922,17 +1401,24 @@ async function loadOrders(){
     await sb
       .from("orders")
       .select("*")
-      .order("created_at",{ascending:false});
+      .order(
+        "created_at",
+        {ascending:false}
+      );
 
 
   if(ordersResult.error){
 
-    document.getElementById("orders").innerHTML =
+    document.getElementById(
+      "orders"
+    ).innerHTML =
       '<div class="message error">' +
       esc(ordersResult.error.message) +
       '</div>';
 
-    console.error(ordersResult.error);
+    console.error(
+      ordersResult.error
+    );
 
     return;
 
@@ -947,12 +1433,16 @@ async function loadOrders(){
 
   if(itemsResult.error){
 
-    document.getElementById("orders").innerHTML =
+    document.getElementById(
+      "orders"
+    ).innerHTML =
       '<div class="message error">' +
       esc(itemsResult.error.message) +
       '</div>';
 
-    console.error(itemsResult.error);
+    console.error(
+      itemsResult.error
+    );
 
     return;
 
@@ -961,6 +1451,7 @@ async function loadOrders(){
 
   orders =
     ordersResult.data || [];
+
 
   orderItems =
     itemsResult.data || [];
@@ -974,13 +1465,17 @@ async function loadOrders(){
 function renderOrders(){
 
   var el =
-    document.getElementById("orders");
+    document.getElementById(
+      "orders"
+    );
 
 
   if(orders.length === 0){
 
     el.innerHTML =
-      '<div class="loading">Nu există comenzi.</div>';
+      '<div class="loading">' +
+      'Nu există comenzi.' +
+      '</div>';
 
     return;
 
@@ -993,12 +1488,14 @@ function renderOrders(){
   orders.forEach(function(order){
 
     var items =
-      orderItems.filter(function(item){
+      orderItems.filter(
+        function(item){
 
-        return String(item.order_id) ===
-          String(order.id);
+          return String(item.order_id) ===
+            String(order.id);
 
-      });
+        }
+      );
 
 
     var statusText = {
@@ -1009,7 +1506,8 @@ function renderOrders(){
       completed:"Finalizată",
       cancelled:"Anulată"
 
-    }[order.status] || order.status;
+    }[order.status] ||
+      order.status;
 
 
     html += `
@@ -1019,279 +1517,21 @@ function renderOrders(){
         <div class="order-title">
 
           Comanda
-          ${esc(order.order_number || order.id)}
+          ${esc(
+            order.order_number ||
+            order.id
+          )}
 
         </div>
 
+
         <p style="color:#6b7280">
-          ${dateFormat(order.created_at)}
+
+          ${dateFormat(
+            order.created_at
+          )}
+
         </p>
 
 
-        <div class="order-info">
-
-          <p>
-            👤 <b>
-            ${esc(order.customer_name)}
-            </b>
-          </p>
-
-          <p>
-            📞 ${esc(order.phone)}
-          </p>
-
-          <p>
-            📧 ${esc(order.email || "-")}
-          </p>
-
-          <p>
-            📍
-            ${esc(order.county || "")},
-            ${esc(order.city || "")},
-            ${esc(order.address || "")}
-          </p>
-
-          <p>
-            💳 ${esc(order.payment_method || "-")}
-          </p>
-
-        </div>
-
-
-        <h3>Produse comandate</h3>
-
-    `;
-
-
-    if(items.length === 0){
-
-      html +=
-        "<p>Nu există produse asociate.</p>";
-
-    }else{
-
-      items.forEach(function(item){
-
-        html += `
-
-          <div class="order-item">
-
-            <span>
-              ${esc(item.name)}
-              × ${item.quantity}
-            </span>
-
-            <span>
-              ${money(
-                Number(item.unit_price) *
-                Number(item.quantity)
-              )}
-            </span>
-
-          </div>
-
-        `;
-
-      });
-
-    }
-
-
-    html += `
-
-        <div class="total">
-
-          <span>Total</span>
-
-          <span>
-            ${money(order.total)}
-          </span>
-
-        </div>
-
-
-        <div style="margin-top:15px">
-
-          <select
-            onchange="changeStatus('${order.id}',this.value)"
-          >
-
-            <option
-              value="new"
-              ${order.status==="new"?"selected":""}>
-              Nouă
-            </option>
-
-            <option
-              value="confirmed"
-              ${order.status==="confirmed"?"selected":""}>
-              Confirmată
-            </option>
-
-            <option
-              value="shipped"
-              ${order.status==="shipped"?"selected":""}>
-              Expediată
-            </option>
-
-            <option
-              value="completed"
-              ${order.status==="completed"?"selected":""}>
-              Finalizată
-            </option>
-
-            <option
-              value="cancelled"
-              ${order.status==="cancelled"?"selected":""}>
-              Anulată
-            </option>
-
-          </select>
-
-          <span style="margin-left:8px">
-            ${esc(statusText)}
-          </span>
-
-        </div>
-
-      </div>
-
-    `;
-
-  });
-
-
-  el.innerHTML = html;
-
-}
-
-
-/* =========================
-   SCHIMBĂ STATUS
-========================= */
-
-async function changeStatus(id,value){
-
-  var result =
-    await sb
-      .from("orders")
-      .update({
-        status:value
-      })
-      .eq("id",id);
-
-
-  if(result.error){
-
-    alert(
-      "Eroare:\n\n" +
-      result.error.message
-    );
-
-    return;
-
-  }
-
-
-  await loadOrders();
-
-  updateStats();
-
-}
-
-
-/* =========================
-   STATISTICI
-========================= */
-
-function updateStats(){
-
-  var active =
-    products.filter(function(p){
-      return p.active;
-    }).length;
-
-
-  var sales =
-    orders
-      .filter(function(o){
-        return o.status !== "cancelled";
-      })
-      .reduce(function(total,o){
-
-        return total + Number(o.total || 0);
-
-      },0);
-
-
-  document.getElementById(
-    "statProducts"
-  ).textContent =
-    products.length;
-
-
-  document.getElementById(
-    "statActive"
-  ).textContent =
-    active;
-
-
-  document.getElementById(
-    "statOrders"
-  ).textContent =
-    orders.length;
-
-
-  document.getElementById(
-    "statSales"
-  ).textContent =
-    money(sales);
-
-}
-
-
-/* =========================
-   ÎNCARCĂ TOT
-========================= */
-
-async function loadAll(){
-
-  document.getElementById("products").innerHTML =
-    '<div class="loading">Se încarcă produsele...</div>';
-
-  document.getElementById("orders").innerHTML =
-    '<div class="loading">Se încarcă comenzile...</div>';
-
-
-  await loadProducts();
-
-  await loadOrders();
-
-  updateStats();
-
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-async function logout(){
-
-  await sb.auth.signOut();
-
-  location.reload();
-
-}
-
-
-/* =========================
-   START
-========================= */
-
-loadAll();
-
-</script>
-
-</body>
-</html>
+        <div clas
