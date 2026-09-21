@@ -26,7 +26,6 @@ async function loadProducts() {
       '<p style="color:red">Eroare Supabase: ' +
       error.message +
       '</p>';
-
     console.error(error);
     return;
   }
@@ -45,9 +44,7 @@ function renderProducts() {
         <div class="info">
           <h3>${p.name}</h3>
 
-          <div class="price">
-            ${money(p.price)}
-          </div>
+          <div class="price">${money(p.price)}</div>
 
           <button
             class="primary buy"
@@ -66,7 +63,7 @@ function add(id) {
     x.qty++;
   } else {
     cart.push({
-      id,
+      id: id,
       qty: 1
     });
   }
@@ -88,8 +85,8 @@ function save() {
 }
 
 function renderCart() {
-  let el = document.querySelector('#cartItems');
-  let t = 0;
+  const el = document.querySelector('#cartItems');
+  let total = 0;
 
   if (!cart.length) {
     el.innerHTML = '<p>Coș gol.</p>';
@@ -98,12 +95,12 @@ function renderCart() {
   }
 
   el.innerHTML = cart.map(x => {
-    let p = products.find(q => q.id === x.id);
+    const p = products.find(q => q.id === x.id);
 
     if (!p) return '';
 
-    let sub = Number(p.price) * x.qty;
-    t += sub;
+    const subtotal = Number(p.price) * x.qty;
+    total += subtotal;
 
     return `
       <div class="cartline">
@@ -113,22 +110,23 @@ function renderCart() {
         </span>
 
         <span class="qty">
-          <button onclick="change(${p.id},-1)">−</button>
-          <button onclick="change(${p.id},1)">+</button>
+          <button type="button" onclick="change(${p.id}, -1)">−</button>
+          <button type="button" onclick="change(${p.id}, 1)">+</button>
         </span>
       </div>
     `;
   }).join('');
 
-  document.querySelector('#total').textContent = money(t);
+  document.querySelector('#total').textContent =
+    money(total);
 }
 
-function change(id, d) {
-  let x = cart.find(a => a.id === id);
+function change(id, amount) {
+  const x = cart.find(a => a.id === id);
 
   if (!x) return;
 
-  x.qty += d;
+  x.qty += amount;
 
   if (x.qty < 1) {
     cart = cart.filter(a => a.id !== id);
@@ -148,7 +146,8 @@ function closeCart() {
 
 function checkout() {
   if (!cart.length) {
-    return alert('Coșul este gol.');
+    alert('Coșul este gol.');
+    return;
   }
 
   closeCart();
@@ -161,80 +160,105 @@ function closeCheckout() {
 
 document.querySelector('#cartBtn').onclick = openCart;
 
-document.querySelector('#orderForm').onsubmit = async e => {
-  e.preventDefault();
+document.querySelector('#orderForm').addEventListener(
+  'submit',
+  async function(e) {
 
-  let f = Object.fromEntries(
-    new FormData(e.target)
-  );
+    e.preventDefault();
 
-  let items = cart.map(x => {
-    let p = products.find(q => q.id === x.id);
-
-    return {
-      product_id: p.id,
-      name: p.name,
-      unit_price: p.price,
-      quantity: x.qty
-    };
-  });
-
-  let total = items.reduce(
-    (s, x) => s + x.unit_price * x.quantity,
-    0
-  );
-
-  const orderId = crypto.randomUUID();
-
-let { error } = await sb
-  .from('orders')
-  .insert({
-    id: orderId,
-    customer_name: f.name,
-    phone: f.phone,
-    email: f.email,
-    county: f.county,
-    city: f.city,
-    address: f.address,
-    payment_method: f.payment,
-    total: total,
-    status: 'new'
-  });
-
-if (error) {
-  return alert(
-    'Eroare la comandă: ' +
-    error.message
-  );
-}
-
-let rows = items.map(x => ({
-  ...x,
-  order_id: orderId
-}));
-
-  let r = await sb
-    .from('order_items')
-    .insert(rows);
-
-  if (r.error) {
-    return alert(
-      'Comanda a fost creată, dar produsele nu au putut fi salvate.'
+    const form = e.target;
+    const f = Object.fromEntries(
+      new FormData(form)
     );
+
+    if (!cart.length) {
+      alert('Coșul este gol.');
+      return;
+    }
+
+    const items = cart.map(x => {
+      const p = products.find(q => q.id === x.id);
+
+      return {
+        product_id: p.id,
+        name: p.name,
+        unit_price: Number(p.price),
+        quantity: x.qty
+      };
+    });
+
+    const total = items.reduce(
+      (sum, item) =>
+        sum + item.unit_price * item.quantity,
+      0
+    );
+
+    const orderId = crypto.randomUUID();
+
+    console.log('Se trimite comanda:', orderId);
+
+    const { error: orderError } = await sb
+      .from('orders')
+      .insert({
+        id: orderId,
+        customer_name: f.name,
+        phone: f.phone,
+        email: f.email || null,
+        county: f.county,
+        city: f.city,
+        address: f.address,
+        payment_method: f.payment,
+        total: total,
+        status: 'new'
+      });
+
+    if (orderError) {
+      console.error(orderError);
+
+      alert(
+        'Eroare la comandă:\n' +
+        orderError.message
+      );
+
+      return;
+    }
+
+    const rows = items.map(item => ({
+      order_id: orderId,
+      product_id: item.product_id,
+      name: item.name,
+      unit_price: item.unit_price,
+      quantity: item.quantity
+    }));
+
+    const { error: itemsError } = await sb
+      .from('order_items')
+      .insert(rows);
+
+    if (itemsError) {
+      console.error(itemsError);
+
+      alert(
+        'Comanda a fost creată, dar produsele nu au putut fi salvate:\n' +
+        itemsError.message
+      );
+
+      return;
+    }
+
+    alert(
+      'Comanda ta a fost înregistrată cu succes!'
+    );
+
+    cart = [];
+
+    save();
+
+    form.reset();
+
+    closeCheckout();
   }
-
-  alert(
-  'Comanda ta a fost înregistrată cu succes!'
 );
-
-  cart = [];
-
-  save();
-
-  e.target.reset();
-
-  closeCheckout();
-};
 
 save();
 loadProducts();
