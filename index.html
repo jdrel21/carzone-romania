@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CarZone România</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="wrap nav"><a class="logo" href="#">CarZone<span>RO</span></a><nav><a href="#produse">Produse</a><a href="#contact">Contact</a></nav><button id="cartBtn">🛒 Coș <b id="count">0</b></button></div></header>
+<section class="hero"><div class="wrap"><p class="eyebrow">ACCESORII AUTO</p><h1>Accesorii utile pentru mașina ta.</h1><p>Comandă online, cu livrare în România.</p><a class="primary" href="#produse">Vezi produsele</a></div></section>
+<section id="produse" class="wrap section"><h2>Produse</h2><div id="products" class="grid"><p>Se încarcă produsele...</p></div></section>
+<section id="contact" class="wrap section"><h2>Contact</h2><p>Adaugă aici datele reale ale firmei înainte de lansare.</p></section>
+<div id="cart" class="overlay hidden"><div class="box"><button class="x" onclick="closeCart()">×</button><h2>Coș</h2><div id="cartItems"></div><div class="total"><b>Total</b><b id="total">0 lei</b></div><button class="primary full" onclick="checkout()">Continuă comanda</button></div></div>
+<div id="checkout" class="overlay hidden"><div class="box"><button class="x" onclick="closeCheckout()">×</button><h2>Date livrare</h2><form id="orderForm">
+<label>Nume și prenume<input name="name" required></label>
+<label>Telefon<input name="phone" required inputmode="tel"></label>
+<label>Email<input name="email" type="email"></label>
+<div class="two"><label>Județ<input name="county" required></label><label>Localitate<input name="city" required></label></div>
+<label>Adresă<input name="address" required></label>
+<label>Plată<select name="payment"><option value="cod">Ramburs la curier</option><option value="card">Card online</option></select></label>
+<button class="primary full" type="submit">Plasează comanda</button>
+<p class="note">Plata cu cardul va fi activată după conectarea procesatorului de plăți.</p>
+</form></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script><script src="app.js"></script>
+</body></html>
