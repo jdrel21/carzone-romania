@@ -224,9 +224,8 @@ let rows = items.map(x => ({
   }
 
   alert(
-    'Comanda ta a fost înregistrată: ' +
-    data.order_number
-  );
+  'Comanda ta a fost înregistrată cu succes!'
+);
 
   cart = [];
 
