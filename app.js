@@ -4,8 +4,7 @@ let products=[],cart=JSON.parse(localStorage.getItem('cz_cart')||'[]');
 const money=n=>Number(n).toLocaleString('ro-RO',{style:'currency',currency:'RON'});
 async function loadProducts(){
  const {data,error}=await sb.from('products').select('*').eq('active',true).order('created_at',{ascending:false});
- if(error){document.querySelector('#products').innerHTML='<p>Configurează Supabase în config.js.</p>';return}
- products=data||[]; renderProducts();
+ if(error){document.querySelector('#products').innerHTML='<p style="color:red">Eroare Supabase: '+error.message+'</p>';console.error(error);return}
 }
 function renderProducts(){document.querySelector('#products').innerHTML=products.map(p=>`<article class="card"><div class="pic">${p.icon||'🚗'}</div><div class="info"><h3>${p.name}</h3><div class="price">${money(p.price)}</div><button class="primary buy" onclick="add(${p.id})">Adaugă în coș</button></div></article>`).join('')}
 function add(id){let x=cart.find(a=>a.id===id);x?x.qty++:cart.push({id,qty:1});save();openCart()}
